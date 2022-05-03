@@ -1,29 +1,42 @@
 {:builds
- {:app {:asset-path "/js"
-        :modules {:main {:init-fn app.core/main}}
-        :output-dir "public/js"
-        :target :browser}
-  :cards {:asset-path "/js"
-          :modules {:main {:init-fn app.cards/main}}
-          :compiler-options {:devcards true}
-          :output-dir "public/js"
-          ;; The problem is from devcards 2.7
-          ;; https://github.com/bhauman/devcards/issues/168
-          ;; Maybe the devcards is not so useful
-          ;; https://github.com/filipesilva/create-cljs-app/issues/303
-          :build-options {:ns-aliases {devcards-marked cljsjs.marked
-                                       devcards-syntax-highlighter cljsjs.highlight}}
-          :target :browser}
-  :test {:ns-regexp "app.cards"
-         :output-to "out/test.js"
-         :target :node-test}
-  :e2e {:ns-regexp "e2e.*"
-        :output-to "out/e2e.js"
-        :target :node-test}}
- :dependencies [[reagent "1.1.1"]
-                [devcards "0.2.7"]
-                [arttuka/reagent-material-ui "5.6.2-0"]]
- :dev-http {3000 "public"}
- :nrepl {:port 3333}
- :source-paths ["src"]
- }
+  {:app {:asset-path "/js"
+         :modules {:main {:init-fn app.core/main}}
+         :output-dir "public/js"
+         :target :browser}
+   :cards {:asset-path "/js"
+           :modules {:main {:init-fn app.cards/main}}
+           :compiler-options {:devcards true}
+           :output-dir "public/js"
+           ;; The problem is from devcards 2.7
+           ;; https://github.com/bhauman/devcards/issues/168
+           ;; Maybe the devcards is not so useful
+           ;; https://github.com/filipesilva/create-cljs-app/issues/303
+           :build-options {:ns-aliases {devcards-marked cljsjs.marked
+                                        devcards-syntax-highlighter cljsjs.highlight}}
+           :target :browser}
+   :test {:ns-regexp "app.cards"
+          :output-to "out/test.js"
+          :target :node-test}
+   :e2e {:ns-regexp "e2e.*"
+         :output-to "out/e2e.js"
+         :target :node-test}}
+   ;; See https://github.com/day8/re-frame-template/tree/master/src/leiningen/new/re_frame
+   :dependencies [[reagent "1.1.1"]
+                  [re-frame "1.2.0"]
+                  ;; re-frame-10x for debugging
+                  [day8.re-frame/re-frame-10x "1.2.6"]
+                  [day8.re-frame/tracing "0.6.2"]
+                  [binaryage/devtools "1.0.6"]
+                  ;; routing
+                  [metosin/reitit "0.5.18"]
+                  ;; css
+                  [garden "1.3.10"]
+                  [net.dhleong/spade "1.1.0"]
+                  [breaking-point "0.1.2"]
+                  ;; devcards like storybook
+                  [devcards "0.2.7"]
+                  ;; material ui
+                  [arttuka/reagent-material-ui "5.6.2-0"]]
+   :dev-http {3000 "public"}
+   :nrepl {:port 3333}
+   :source-paths ["src"]}
